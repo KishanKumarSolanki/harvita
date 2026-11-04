@@ -10,10 +10,8 @@
     @apply bg-cream font-sans text-green antialiased;
   }
   h1,
-  h2 {
-    @apply font-serif;
-  }
+  h2,
   h3 {
-    @apply font-sans font-bold;
+    @apply font-serif font-bold;
   }
 }

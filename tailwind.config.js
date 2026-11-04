@@ -11,7 +11,7 @@ export default {
         "pale-sage": "#E6EDE4",
       },
       fontFamily: {
-        serif: ['"Playfair Display"', "serif"],
+        serif: ["Georgia", '"Times New Roman"', "serif"],
         sans: ['"DM Sans"', "sans-serif"],
       },
     },
