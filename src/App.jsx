@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-// import DashboardPreview from "./components/DashboardPreview";
+import DashboardPreview from "./components/DashboardPreview";
 import About from "./components/About";
 import Services from "./components/Services";
 import Audience from "./components/Audience";
