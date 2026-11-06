@@ -1,4 +1,6 @@
 // src/components/Hero.jsx
+import heroVideo from "../assets/herovideo.mp4";
+
 export default function Hero() {
   return (
     <section
@@ -51,6 +53,18 @@ export default function Hero() {
           From business registration and startup support to trademark protection, taxation and regulatory compliance,
           HARVITAA helps simplify your business journey.
         </p>
+
+        {/* Hero video */}
+        <video
+          className="mx-auto mt-8 aspect-video w-full max-w-3xl rounded-2xl border border-[#E3C07A]/30 bg-black/20 object-cover shadow-[0_20px_60px_-20px_rgba(0,0,0,0.55)]"
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          controls
+          aria-label="HARVITAA introduction video"
+        />
 
         {/* CTAs */}
         <div className="mx-auto mt-10 flex w-full max-w-md items-center justify-center gap-3">
