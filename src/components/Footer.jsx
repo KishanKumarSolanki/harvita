@@ -1,5 +1,4 @@
 
-import logo from "../assets/harvitaa-logo.jpg";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 const footerLinks = [
@@ -74,7 +73,7 @@ export default function Footer() {
                 group-hover:shadow-[0_10px_25px_rgba(201,162,76,0.18)]
               ">
                 <img
-                  src={logo}
+                  src="/harvitaa-logo.jpg"
                   alt="HARVITAA Logo"
                   className="
                     h-full w-full
