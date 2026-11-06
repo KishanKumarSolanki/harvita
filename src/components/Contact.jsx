@@ -167,20 +167,53 @@ function FormIcon({ children }) {
 
 export default function Contact() {
   const [form, setForm] = useState(emptyForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+    setSubmitStatus({ type: "", message: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("Thank you! Our team will contact you shortly.");
+    const endpoint = import.meta.env.VITE_GOOGLE_SCRIPT_URL?.trim();
+    if (!endpoint) {
+      setSubmitStatus({
+        type: "error",
+        message: "The contact form is not connected yet. Please contact us by phone or WhatsApp.",
+      });
+      return;
+    }
 
-    setForm(emptyForm);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: "", message: "" });
+
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(form),
+      });
+
+      setForm(emptyForm);
+      setSubmitStatus({
+        type: "success",
+        message: "Thank you! Your enquiry has been sent. Our team will contact you shortly.",
+      });
+    } catch {
+      setSubmitStatus({
+        type: "error",
+        message: "We couldn't send your enquiry. Please try again or contact us by phone or WhatsApp.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -657,6 +690,7 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="
                   group relative mt-7
                   flex w-full items-center
@@ -680,6 +714,7 @@ export default function Contact() {
                   hover:shadow-[0_10px_25px_rgba(201,162,76,0.28)]
 
                   active:translate-y-0
+                  disabled:cursor-wait disabled:opacity-70
                 "
               >
 
@@ -695,7 +730,7 @@ export default function Contact() {
                 " />
 
                 <span className="relative z-10">
-                  Submit Enquiry
+                  {isSubmitting ? "Sending..." : "Submit Enquiry"}
                 </span>
 
                 <svg
@@ -717,6 +752,18 @@ export default function Contact() {
                 </svg>
 
               </button>
+
+              {submitStatus.message && (
+                <p
+                  role={submitStatus.type === "error" ? "alert" : "status"}
+                  aria-live="polite"
+                  className={`mt-4 text-center text-sm ${
+                    submitStatus.type === "error" ? "text-red-700" : "text-green"
+                  }`}
+                >
+                  {submitStatus.message}
+                </p>
+              )}
 
               {/* Privacy Note */}
               <p className="
